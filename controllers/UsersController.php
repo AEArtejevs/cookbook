@@ -71,7 +71,7 @@ class UsersController
 
         return array_values($users);
     }
-}
+
     public static function getUserData($id)
     {
         global $pdo;
@@ -99,4 +99,5 @@ class UsersController
             return $stmt->execute([$name, $gender, $birthdate, $id]);
         }
     }
+    
 }
