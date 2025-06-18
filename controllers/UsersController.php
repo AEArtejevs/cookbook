@@ -72,3 +72,30 @@ class UsersController
         return array_values($users);
     }
 }
+    public static function getUserData($id)
+    {
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT id, name, email, role, gender, birthdate, image FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public static function updateUserProfile($id, $name, $gender = null, $birthdate = null, $imagePath = null)
+    {
+        global $pdo;
+
+        if ($imagePath) {
+            $stmt = $pdo->prepare("
+            UPDATE users
+            SET name = ?, gender = ?, birthdate = ?, image = ?, updated_at = NOW()
+            WHERE id = ?
+        ");
+            return $stmt->execute([$name, $gender, $birthdate, $imagePath, $id]);
+        } else {
+            $stmt = $pdo->prepare("
+            UPDATE users
+            SET name = ?, gender = ?, birthdate = ?, updated_at = NOW()
+            WHERE id = ?
+        ");
+            return $stmt->execute([$name, $gender, $birthdate, $id]);
+        }
+    }
