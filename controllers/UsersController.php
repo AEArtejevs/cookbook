@@ -99,3 +99,4 @@ class UsersController
             return $stmt->execute([$name, $gender, $birthdate, $id]);
         }
     }
+}
