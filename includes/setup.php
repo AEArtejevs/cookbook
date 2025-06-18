@@ -27,6 +27,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Create tables
+    // Updated users table
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -34,11 +35,12 @@ try {
             email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
+            gender ENUM('male', 'female', 'other') DEFAULT NULL,
+            birthdate DATE DEFAULT NULL,
             image VARCHAR(255) DEFAULT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        );
-
+        );
 
         CREATE TABLE IF NOT EXISTS categories (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
